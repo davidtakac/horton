@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Horton</string>
+    <string name="a11y_recognition_history">Recognition history</string>
+    <string name="a11y_start_recognition">Start recognition</string>
+    <string name="status_not_recognized">Couldn\'t recognize, please try again</string>
+    <string name="snackbar_permission_revoked">Can\'t record sound without your permission.</string>
+    <string name="a11y_song_art">Recognized song art</string>
+    <string name="label_history">History</string>
+    <string name="label_record">Record</string>
+    <string name="placeholder_song_subtitle">Unknown artist</string>
+    <string name="a11y_back_from_history">Go back</string>
+    <string name="template_recognition_time">at %1$s</string>
+    <string name="placeholder_history">Nothing here…yet! Songs Horton recognizes will appear here.</string>
+    <string name="a11y_error_icon">Error icon</string>
+    <string name="error_history">An unexpected error occurred when getting recognition history</string>
+    <string name="a11y_try_again">Try again icon</string>
+    <string name="label_try_again">Try again</string>
+    <string name="recording_permission_rationale_title">Recording permission</string>
+    <string name="recording_permission_rationale_text">
+        To recognize songs in your surroundings, Horton records audio using your phone\'s microphone.
+        Depending on the service you\'re using, this audio could be sent raw, which could compromise
+        your privacy. To continue, grant Horton permission to record audio.
+    </string>
+    <string name="recording_permission_grant_action">Grant</string>
+    <string name="recording_permission_dismiss_action">Cancel</string>
+    <string name="lenny">¯\\_( ツ )_/¯</string>
+    <string name="template_artist_year">%1$s · %2$s</string>
+</resources>

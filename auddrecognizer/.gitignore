@@ -1,0 +1,4 @@
+/build
+
+# Exclude API key
+/src/main/java/hr/dtakac/horton/auddrecognizer/api/AuddApiKey.kt

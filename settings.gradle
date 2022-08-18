@@ -1,0 +1,6 @@
+rootProject.name = "Horton"
+include ':app'
+include ':roompersistence'
+include ':domain'
+include ':auddrecognizer'
+include ':shazamrecognizer'

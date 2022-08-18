@@ -1,0 +1,31 @@
+# The following is related to Python or miscellaneous
+*.pyc
+__pycache__/
+config.py
+build/
+.~lock.*
+*.glade#
+*~
+*.swp
+
+# The following is related to Rust
+target/
+
+# The following is related to building packages
+vendor/
+repo/
+.flatpak-builder/
+.cargo/
+
+# The following is related to snap packages
+stage/
+parts/
+prime/
+*.snap
+
+# The following is related to cross-compiling for Android
+android-ndk-r21e/
+android-ndk-r21e*.zip
+
+# The following is related to assets
+assets/

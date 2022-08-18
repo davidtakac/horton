@@ -1,0 +1,10 @@
+/build
+/.gradle
+/.idea
+/local.properties
+
+# Exclude compiled libraries
+/src/main/jniLibs
+# Exclude implementation-specific code
+/src/main/java/hr/dtakac/horton/shazamrecognizer/api
+/src/main/java/hr/dtakac/horton/shazamrecognizer/ShazamSongRecognizer.kt

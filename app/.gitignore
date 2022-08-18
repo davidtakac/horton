@@ -1,0 +1,4 @@
+/build
+
+# Exclude implementation-specific code
+/src/main/java/hr/dtakac/horton/di/ShazamRecognizerModule.kt

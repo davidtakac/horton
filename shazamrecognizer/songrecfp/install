@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+# Determine host OS
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  TOOLCHAIN_NAME="linux-x86_64"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  TOOLCHAIN_NAME="darwin-x86_64"
+else
+  echo "Host OS $OSTYPE not supported!"
+  exit 1
+fi
+
+# Set up NDK
+NDK_DIR="$(pwd)/android-ndk-r21e"
+[ ! -d "$NDK_DIR" ] && {
+    echo "$NDK_DIR not found, downloading and installing NDK..."
+    ZIP_NAME="android-ndk-r21e-$TOOLCHAIN_NAME.zip"
+    curl -O "https://dl.google.com/android/repository/$ZIP_NAME"
+    unzip -q "$ZIP_NAME"
+}
+
+# Configure shell environment
+TOOLCHAIN="$NDK_DIR/toolchains/llvm/prebuilt/$TOOLCHAIN_NAME"
+export PATH="$PATH:$TOOLCHAIN/bin"
+
+# Configure rust
+rustup target add \
+  aarch64-linux-android \
+  armv7-linux-androideabi \
+  i686-linux-android \
+  x86_64-linux-android
+rustup update
+
+# Configure cargo
+API="24"
+export CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER="$TOOLCHAIN/bin/aarch64-linux-android$API-clang"
+export CARGO_TARGET_ARMV7_LINUX_ANDROIDEABI_LINKER="$TOOLCHAIN/bin/armv7a-linux-androideabi$API-clang"
+export CARGO_TARGET_I686_LINUX_ANDROID_LINKER="$TOOLCHAIN/bin/i686-linux-android$API-clang"
+export CARGO_TARGET_X86_64_LINUX_ANDROID_LINKER="$TOOLCHAIN/bin/x86_64-linux-android$API-clang"
+
+# Build
+echo "Building..."
+cargo build --target=aarch64-linux-android --release
+cargo build --target=armv7-linux-androideabi --release
+cargo build --target=i686-linux-android --release
+cargo build --target=x86_64-linux-android --release
+
+# Configure JNI libs directories
+JNI_LIBS="../src/main/jniLibs"
+rm -rf "$JNI_LIBS"
+mkdir "$JNI_LIBS"
+mkdir "$JNI_LIBS/arm64-v8a"
+mkdir "$JNI_LIBS/armeabi-v7a"
+mkdir "$JNI_LIBS/x86"
+mkdir "$JNI_LIBS/x86_64"
+
+# Copy built libraries into Android project
+LIB="libsongrecfp.so"
+cp "target/aarch64-linux-android/release/$LIB" "$JNI_LIBS/arm64-v8a/$LIB"
+cp "target/armv7-linux-androideabi/release/$LIB" "$JNI_LIBS/armeabi-v7a/$LIB"
+cp "target/i686-linux-android/release/$LIB" "$JNI_LIBS/x86/$LIB"
+cp "target/x86_64-linux-android/release/$LIB" "$JNI_LIBS/x86_64/$LIB"
